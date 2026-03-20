@@ -31,7 +31,7 @@ produto* lerCSV(FILE *dataset, int *total_linhas) {
         return p; 
     }
 
-    while (fscanf(dataset, "%d,%50[^,],%30[^,],%f",
+    while (fscanf(dataset, "%d,%51[^,],%31[^,],%f",
         &p[linha].id,
         p[linha].nome,
         p[linha].categoria,
