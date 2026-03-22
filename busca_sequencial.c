@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <math.h>
+#include <time.h>
 
 typedef struct {
     int id;
@@ -75,11 +76,16 @@ int main() {
         printf("Erro ao abrir o arquivo.\n");
         return 1;
     }
-    
+    clock_t tempo_inicial, tempo_final;
+    double duracao;
     int total_linhas = 0;
 
+    tempo_inicial = clock();
     produto *meus_produtos = lerCSV(dataset, &total_linhas);
     printf("%d / 100.004 produtos carregados\n", total_linhas);
+    tempo_final = clock();
+    duracao = (double)(tempo_final - tempo_inicial)/ CLOCKS_PER_SEC;
+    printf("Tempo de execucao: %.10f\n", duracao);
     free(meus_produtos);
     fclose(dataset);
 
