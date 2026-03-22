@@ -80,6 +80,8 @@ int main() {
 
     produto *meus_produtos = lerCSV(dataset, &total_linhas);
     printf("%d / 100.004 produtos carregados\n", total_linhas);
+    free(meus_produtos);
+    fclose(dataset);
 
     return 0;
 }
