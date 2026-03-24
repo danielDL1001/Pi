@@ -13,7 +13,7 @@ typedef struct {
 } produto;
 
 //alterações (início) // Alocação Dinâmica
-produto* lerCSV(FILE *dataset, int *total_linhas) {
+produto* lerCSV(FILE *dataset1, int *total_linhas) {
     int capacidade = 1000; //capacidade inicial
     int linha = 0;
     
@@ -27,12 +27,12 @@ produto* lerCSV(FILE *dataset, int *total_linhas) {
         
     //Leitura do Arquivo
     char cabecalho[200];
-    if (fgets(cabecalho, sizeof(cabecalho), dataset) == NULL) {
+    if (fgets(cabecalho, sizeof(cabecalho), dataset1) == NULL) {
         printf("Erro: Arquivo vazio!\n");
         return p; 
     }
 
-    while (fscanf(dataset, "%d,%51[^,],%31[^,],%f",
+    while (fscanf(dataset1, "%d,%50[^,],%30[^,],%f",
         &p[linha].id,
         p[linha].nome,
         p[linha].categoria,
@@ -71,8 +71,8 @@ int busca_sequencial(produto *p, int total_linhas, int id_buscado){
 
 int main() {
     // Abre o arquivo CSV para leitura
-    FILE *dataset = fopen("../dataset.csv", "r");
-    if (dataset == NULL) {
+    FILE *dataset1 = fopen("../dataset1.csv", "r");
+    if (dataset1 == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return 1;
     }
@@ -80,8 +80,7 @@ int main() {
     double duracao;
     int total_linhas = 0;
 
-    tempo_inicial = clock();
-    produto *meus_produtos = lerCSV(dataset, &total_linhas);
+    produto *meus_produtos = lerCSV(dataset1, &total_linhas);
     printf("%d / 100.004 produtos carregados\n", total_linhas);
     tempo_final = clock();
     duracao = (double)(tempo_final - tempo_inicial)/ CLOCKS_PER_SEC;
