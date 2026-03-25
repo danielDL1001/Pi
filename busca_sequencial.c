@@ -70,7 +70,6 @@ int busca_sequencial(produto *p, int total_linhas, int id_buscado){
 }
 //alterações (fim) // Busca Sequencial CONCLUÍDA
 
-
 int main() {
     // Abre o arquivo CSV para leitura
     FILE *dataset1 = fopen("../dataset1.csv", "r");
