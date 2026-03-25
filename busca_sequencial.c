@@ -81,12 +81,12 @@ int main() {
     int total_linhas = 0;
 
     produto *meus_produtos = lerCSV(dataset1, &total_linhas);
-    printf("%d / 100.004 produtos carregados\n", total_linhas);
+    printf("%d / 100.003 produtos carregados\n", total_linhas);
     tempo_final = clock();
     duracao = (double)(tempo_final - tempo_inicial)/ CLOCKS_PER_SEC;
     printf("Tempo de execucao: %.10f\n", duracao);
     free(meus_produtos);
-    fclose(dataset);
+    fclose(dataset1);
 
     return 0;
 }
