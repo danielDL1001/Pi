@@ -29,6 +29,7 @@ produto* lerCSV(FILE *dataset1, int *total_linhas) {
     char cabecalho[200];
     if (fgets(cabecalho, sizeof(cabecalho), dataset1) == NULL) {
         printf("Erro: Arquivo vazio!\n");
+        free(p);
         return p; 
     }
 
@@ -46,6 +47,7 @@ produto* lerCSV(FILE *dataset1, int *total_linhas) {
             if (p == NULL)
             {
                 printf("Memoria insuficiente!\n");
+                free(p);
                 exit(1); //encerra o programa se faltar memória.
             }
         }
@@ -80,13 +82,14 @@ int main() {
     double duracao;
     int total_linhas = 0;
 
+    tempo_inicial = clock();
     produto *meus_produtos = lerCSV(dataset1, &total_linhas);
     printf("%d / 100.004 produtos carregados\n", total_linhas);
     tempo_final = clock();
     duracao = (double)(tempo_final - tempo_inicial)/ CLOCKS_PER_SEC;
     printf("Tempo de execucao: %.10f\n", duracao);
     free(meus_produtos);
-    fclose(dataset);
+    fclose(dataset1);
 
     return 0;
 }
