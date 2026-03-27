@@ -1,16 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <math.h>
-#include <time.h>
+#include "../include/busca_sequencial.h"
 
-typedef struct {
-    int id;
-    char nome[51];
-    char categoria[31];
-    float valor;
-} produto;
 
 //alterações (início) // Alocação Dinâmica
 produto* lerCSV(FILE *dataset1, int *total_linhas) {
@@ -22,6 +13,7 @@ produto* lerCSV(FILE *dataset1, int *total_linhas) {
     if (p == NULL)
     {
         printf("Memoria insuficiente!\n");
+        free(p);
         exit(1); //encerra o programa se faltar memória.
     }
         
@@ -42,14 +34,13 @@ produto* lerCSV(FILE *dataset1, int *total_linhas) {
         
         if (linha >= capacidade) //quando a memória base de 1000 se encher, esse bloco executa
         {
-            capacidade *= 2;
-            p = (produto *)realloc(p, capacidade * sizeof(produto));
-            if (p == NULL)
-            {
+            produto *temp = (produto *)realloc(p, capacidade * sizeof(produto));
+            if (temp == NULL) {
                 printf("Memoria insuficiente!\n");
                 free(p);
-                exit(1); //encerra o programa se faltar memória.
+                exit(1);
             }
+        p = temp; //encerra o programa se faltar memória.
         }
     }
     *total_linhas = linha; //salva a quantidade de linhas lidas
@@ -67,29 +58,4 @@ int busca_sequencial(produto *p, int total_linhas, int id_buscado){
         
     }
     return -1;
-}
-//alterações (fim) // Busca Sequencial CONCLUÍDA
-
-
-int main() {
-    // Abre o arquivo CSV para leitura
-    FILE *dataset1 = fopen("../dataset1.csv", "r");
-    if (dataset1 == NULL) {
-        printf("Erro ao abrir o arquivo.\n");
-        return 1;
-    }
-    clock_t tempo_inicial, tempo_final;
-    double duracao;
-    int total_linhas = 0;
-
-    tempo_inicial = clock();
-    produto *meus_produtos = lerCSV(dataset1, &total_linhas);
-    printf("%d / 100.004 produtos carregados\n", total_linhas);
-    tempo_final = clock();
-    duracao = (double)(tempo_final - tempo_inicial)/ CLOCKS_PER_SEC;
-    printf("Tempo de execucao: %.10f\n", duracao);
-    free(meus_produtos);
-    fclose(dataset1);
-
-    return 0;
 }
