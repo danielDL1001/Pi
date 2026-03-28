@@ -32,8 +32,10 @@ produto* lerCSV(FILE *dataset1, int *total_linhas) {
         &p[linha].valor) == 4) {
         linha++;
         
+        // Se encher, aumentar a capacidade
         if (linha >= capacidade) //quando a memória base de 1000 se encher, esse bloco executa
         {
+            capacidade *= 2;
             produto *temp = (produto *)realloc(p, capacidade * sizeof(produto));
             if (temp == NULL) {
                 printf("Memoria insuficiente!\n");
