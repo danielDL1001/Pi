@@ -53,3 +53,6 @@ int main() {
 
     return 0;
 }
+
+// Copilar: gcc -o main src/main.c src/busca_sequencial.c -I include -o main.out
+// Executar: ./main.out
