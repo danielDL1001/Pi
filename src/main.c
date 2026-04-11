@@ -26,27 +26,39 @@ int main() {
         fclose(dataset1);
         return 1;
     }
-
     printf("%d / 100.004 produtos carregados\n", total_linhas);
 
     duracao = (double)(tempo_final - tempo_inicial) / CLOCKS_PER_SEC;
-    printf("Tempo de execucao: %.10f segundos\n", duracao);
+    printf("Tempo de execucao da leitura do CSV: %.10f segundos\n", duracao);
 
-    int id_buscado;
-    printf("\nDigite o ID para buscar: ");
-    scanf("%d", &id_buscado);
+    busca_seq_esp(meus_produtos, total_linhas, 1);
+    busca_seq_esp(meus_produtos, total_linhas, 50000);
+    busca_seq_esp(meus_produtos, total_linhas, 100000);
 
-    int posicao = busca_sequencial(meus_produtos, total_linhas, id_buscado);
+    int ids_encontrados[1000];
+    int count = 0;
+    for (int i = 0; i < 1000 && i < total_linhas; i++) {
+        int id_buscado = meus_produtos[i].id;
 
-    if (posicao != -1) {
-        printf("\nProduto encontrado!\n");
-        printf("ID: %d\n", meus_produtos[posicao].id);
-        printf("Nome: %s\n", meus_produtos[posicao].nome);
-        printf("Categoria: %s\n", meus_produtos[posicao].categoria);
-        printf("Valor: %.2f\n", meus_produtos[posicao].valor);
-    } else {
-        printf("\nProduto com ID %d nao encontrado.\n", id_buscado);
+        int posicao = busca_sequencial(meus_produtos, total_linhas, id_buscado);
+
+        if (posicao != -1) {
+            ids_encontrados[count++] = meus_produtos[posicao].id;
+        } else {
+            printf("Produto com ID %d nao encontrado.\n", id_buscado);
+        }
     }
+
+    printf("\nIDs encontrados:\n[");
+    for (int i = 0; i < count; i++) {
+        printf("%d", ids_encontrados[i]);
+
+        if (i < count - 1) {
+            printf(", ");
+        }
+    }
+
+    printf("]\n");
 
     free(meus_produtos);
     fclose(dataset1);
