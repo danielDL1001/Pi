@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "../include/busca_sequencial.h"
 
 
@@ -60,4 +61,22 @@ int busca_sequencial(produto *p, int total_linhas, int id_buscado){
         
     }
     return -1;
+}
+
+void busca_seq_esp(produto *produtos, int total_linhas, int limite) {
+
+    int soma_posicoes = 0;
+    clock_t inicio = clock();
+
+    for (int id = 0; id <= limite; id++) {
+        int pos = busca_sequencial(produtos, total_linhas, id);
+        if (pos != -1) {
+            soma_posicoes += pos;
+        }
+    }
+
+    clock_t fim = clock();
+    double tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
+
+    printf("Busca de 0 ate %d -> Tempo: %.10f segundos\n", limite, tempo);
 }
