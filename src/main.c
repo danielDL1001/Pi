@@ -15,7 +15,7 @@ int main() {
     }
 
     clock_t tempo_inicial, tempo_final;
-    double duracao;
+    double csv_time, temp;
     int total_linhas = 0;
 
     tempo_inicial = clock();
@@ -28,8 +28,14 @@ int main() {
     }
     printf("%d / 100.004 produtos carregados\n", total_linhas);
 
-    duracao = (double)(tempo_final - tempo_inicial) / CLOCKS_PER_SEC;
-    printf("Tempo de execucao da leitura do CSV: %.10f segundos\n", duracao);
+    csv_time = (double)(tempo_final - tempo_inicial) / CLOCKS_PER_SEC;
+    printf("Tempo de leitura do CSV: %.10f segundos\n", csv_time);
+
+    tempo_inicial = clock();
+    busca_sequencial(meus_produtos, total_linhas, -1);
+    tempo_final = clock();
+    temp = (double)(tempo_final - tempo_inicial) / CLOCKS_PER_SEC;
+    printf("Tempo da busca valor inexistente: %.10f segundos\n", temp);
 
     busca_seq_esp(meus_produtos, total_linhas, 1);
     busca_seq_esp(meus_produtos, total_linhas, 50000);
@@ -66,5 +72,5 @@ int main() {
     return 0;
 }
 
-// Copilar: gcc -o main src/main.c src/busca_sequencial.c -I include -o main.out
+// Copilar: gcc -o main src/*.c -I include -o main.out
 // Executar: ./main.out
