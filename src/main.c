@@ -40,8 +40,13 @@ int main() {
 
     // Leitura dos IDs
     int *ids = ler_ids(array, &total_ids);
+    if (ids == NULL) {
+        fclose(array);
+        free(meus_produtos);
+        return 1;
+    }
 
-    // Teste do melhor caso (primeiro id)
+    // Teste do Melhor Caso (primeiro id)
     tempo_inicial = clock();
     busca_sequencial(meus_produtos, total_linhas, 83442);
     tempo_final = clock();
@@ -49,7 +54,7 @@ int main() {
     printf("Tempo da busca do melhor caso: %.10f segundos\n", temp_pri);
 
 
-    // Teste do pior caso (ultimo id)
+    // Teste do Pior Caso (ultimo id)
     tempo_inicial = clock();
     busca_sequencial(meus_produtos, total_linhas, 38990);
     tempo_final = clock();
@@ -68,20 +73,6 @@ int main() {
     teste_busca_ids(meus_produtos, total_linhas, ids, 1);
     teste_busca_ids(meus_produtos, total_linhas, ids, 500);
     teste_busca_ids(meus_produtos, total_linhas, ids, 1000);
-
-    int ids_encontrados[1000];
-    int count = 0;
-    for (int i = 0; i < 1000 && i < total_linhas; i++) {
-        int id_buscado = meus_produtos[i].id;
-
-        int posicao = busca_sequencial(meus_produtos, total_linhas, id_buscado);
-
-        if (posicao != -1) {
-            ids_encontrados[count++] = meus_produtos[posicao].id;
-        } else {
-            printf("Produto com ID %d nao encontrado.\n", id_buscado);
-        }
-    }
 
     // Limpeza de memória e fechamento de arquivos
     free(meus_produtos);
