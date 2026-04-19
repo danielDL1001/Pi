@@ -74,9 +74,11 @@ int main() {
     teste_busca_ids(meus_produtos, total_linhas, ids, 500);
     teste_busca_ids(meus_produtos, total_linhas, ids, 1000);
 
-    // Limpeza de memória e fechamento de arquivos
+    // Limpeza de memória
     free(meus_produtos);
     free(ids);
+
+    // Fechamento de arquivos
     fclose(dataset1);
     fclose(array);
 
