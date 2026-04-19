@@ -3,10 +3,9 @@
 #include <time.h>
 #include "../include/busca_sequencial.h"
 
-
-//alterações (início) // Alocação Dinâmica
+// Função para ler o CSV e retornar um array de produtos
 produto* lerCSV(FILE *dataset1, int *total_linhas) {
-    int capacidade = 1000; //capacidade inicial
+    int capacidade = 1000; //Capacidade inicial
     int linha = 0;
     
     //Alocação Dinâmica inicial
@@ -34,7 +33,7 @@ produto* lerCSV(FILE *dataset1, int *total_linhas) {
         linha++;
         
         // Se encher, aumentar a capacidade
-        if (linha >= capacidade) //quando a memória base de 1000 se encher, esse bloco executa
+        if (linha >= capacidade) // Quando a memória base de 1000 se encher, esse bloco executa
         {
             capacidade *= 2;
             produto *temp = (produto *)realloc(p, capacidade * sizeof(produto));
@@ -43,40 +42,63 @@ produto* lerCSV(FILE *dataset1, int *total_linhas) {
                 free(p);
                 exit(1);
             }
-        p = temp; //encerra o programa se faltar memória.
+        p = temp; // Encerra o programa se faltar memória.
         }
     }
-    *total_linhas = linha; //salva a quantidade de linhas lidas
+    *total_linhas = linha; // Salva a quantidade de linhas lidas
     return p;
-    }
-//alterações (fim) // Alocação Dinâmica CONCLUÍDA 
+}
+// Alocação Dinâmica e leitura do CSV concluida
 
-//alterações (início) // Busca Sequencial
+// Função para ler os IDs do arquivo
+int* ler_ids(FILE *arquivo, int *total_ids) {
+    int capacidade = 1000;
+    int count = 0;
+
+    int *ids = malloc(capacidade * sizeof(int));
+    if (!ids) {
+        printf("Erro de memoria!\n");
+        exit(1);
+    }
+
+    while (fscanf(arquivo, "%d", &ids[count]) == 1) {
+        count++;
+
+        if (count >= capacidade) {
+            capacidade *= 2;
+            int *temp = realloc(ids, capacidade * sizeof(int));
+            if (!temp) {
+                free(ids);
+                printf("Erro de memoria!\n");
+                exit(1);
+            }
+            ids = temp;
+        }
+    }
+
+    *total_ids = count;
+    return ids;
+}
+// Função para realizar a busca sequencial
+
+// Busca sequencial no CSV
 int busca_sequencial(produto *p, int total_linhas, int id_buscado){
     for(int i = 0; i < total_linhas; i++){
         if (p[i].id == id_buscado) // Se o id do índice for igual ao id escolhido, retorna o índice. 
         {
             return i;
         }
-        
     }
     return -1;
 }
 
-void busca_seq_esp(produto *produtos, int total_linhas, int limite) {
-
-    int soma_posicoes = 0;
+// Função para testar a busca sequencial para um conjunto de IDs e medir o tempo gasto
+void teste_busca_ids(produto *produtos, int total_linhas, int *ids, int limite) {
     clock_t inicio = clock();
-
-    for (int id = 0; id <= limite; id++) {
-        int pos = busca_sequencial(produtos, total_linhas, id);
-        if (pos != -1) {
-            soma_posicoes += pos;
-        }
+    for (int i = 0; i < limite; i++) {
+        busca_sequencial(produtos, total_linhas, ids[i]);
     }
-
     clock_t fim = clock();
     double tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
-
-    printf("Busca de 0 ate %d -> Tempo: %.10f segundos\n", limite, tempo);
+    printf("Busca dos primeiros %d IDs -> Tempo: %.10f segundos\n", limite, tempo);
 }
