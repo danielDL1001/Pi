@@ -1,8 +1,6 @@
 #ifndef BUSCA_SEQUENCIAL_H
 #define BUSCA_SEQUENCIAL_H
 
-#include <stdio.h>
-
 typedef struct { // Estrutura para armazenar os dados dos produtos do Dataset
     int id;
     char nome[51];
