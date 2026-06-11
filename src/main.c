@@ -6,6 +6,7 @@
 #include <time.h>
 #include "../include/busca_sequencial.h"
 #include "../include/funcao_hash.h"
+#include "../include/lista_encadeada.h"
 
 int main() {
     // Variáveis
