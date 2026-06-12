@@ -5,7 +5,7 @@
 #include <math.h>
 #include <time.h>
 #include "../include/busca_sequencial.h"
-#include "../include/funcao_hash.h"
+#include "../include/hash.h"
 #include "../include/lista_encadeada.h"
 
 int main() {
@@ -79,8 +79,10 @@ int main() {
     teste_busca_ids(meus_produtos, total_linhas, ids, 1000);
 
 // PARTE 02
-    printf("================= PARTE 01 =================");
+    printf("================= PARTE 02 =================");
     printf(". . .");
+
+    
     // Limpeza de memória
     free(meus_produtos);
     free(ids);
