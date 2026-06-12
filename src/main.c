@@ -5,6 +5,8 @@
 #include <math.h>
 #include <time.h>
 #include "../include/busca_sequencial.h"
+#include "../include/funcao_hash.h"
+#include "../include/lista_encadeada.h"
 
 int main() {
     // Variáveis
@@ -46,6 +48,8 @@ int main() {
         return 1;
     }
 
+// PARTE 01
+    printf("================= PARTE 01 =================");
     // Teste do Melhor Caso (primeiro id)
     tempo_inicial = clock();
     busca_sequencial(meus_produtos, total_linhas, 83442);
@@ -74,6 +78,9 @@ int main() {
     teste_busca_ids(meus_produtos, total_linhas, ids, 500);
     teste_busca_ids(meus_produtos, total_linhas, ids, 1000);
 
+// PARTE 02
+    printf("================= PARTE 01 =================");
+    printf(". . .");
     // Limpeza de memória
     free(meus_produtos);
     free(ids);
