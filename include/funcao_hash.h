@@ -19,5 +19,6 @@ TabelaHash* criarTabelaHash(int tamanho);
 void destruir_TabelaHash(TabelaHash* tabela);
 void hash_inserir(TabelaHash* tabela, produto p);
 int hash_buscar(TabelaHash* tabela, int id_buscado);
+void teste_busca_hash(TabelaHash* tabela, int *ids, int limite);
 
 #endif

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "../include/funcao_hash.h"
 
 TabelaHash* criarTabelaHash(int tamanho) {
@@ -40,6 +41,8 @@ void hash_inserir(TabelaHash* tabela, produto p) {
 
 // A busca agora recebe o ID inteiro
 int hash_buscar(TabelaHash* tabela, int id_buscado) {
+    if (tabela == NULL || id_buscado < 0) return -1; // Retorna -1 para indicar que não achou ou que a tabela é inválida
+
     // Vai direto na gaveta certa usando a matemática
     int indice = id_buscado % tabela->tamanho;
     
@@ -74,4 +77,20 @@ void destruir_TabelaHash(TabelaHash* tabela) {
     // Libera o vetor de gavetas e, por fim, a própria tabela
     free(tabela->itens);
     free(tabela);
+}
+void teste_busca_hash(TabelaHash *hash, int *ids, int quantidade) {
+    clock_t inicio, fim;
+    double tempo;
+
+    inicio = clock();
+
+    for (int i = 0; i < quantidade; i++) {
+        hash_buscar(hash, ids[i]);
+    }
+
+    fim = clock();
+
+    tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
+
+    printf("Tempo para buscar %d IDs na Hash: %.10f segundos\n", quantidade, tempo);
 }
