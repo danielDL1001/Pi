@@ -79,6 +79,19 @@ int main() {
     teste_busca_ids(meus_produtos, total_linhas, ids, 500);
     teste_busca_ids(meus_produtos, total_linhas, ids, 1000);
 
+    // Teste de busca de IDs aleatórios listados na Busca Sequencial, 3 vezes
+    printf("\nRealização do teste dos IDs aleatórios listados na Busca Sequencial, 3 vezes:\n");
+    tempo_inicial = clock();
+    for(int i = 0; i < 3; i++) {
+        printf("\nIteração %d:\n", i + 1);
+        teste_busca_ids(meus_produtos, total_linhas, ids, 1);
+        teste_busca_ids(meus_produtos, total_linhas, ids, 500);
+        teste_busca_ids(meus_produtos, total_linhas, ids, 1000);
+    }
+    tempo_final = clock();
+    double sequential_test_time = (double)(tempo_final - tempo_inicial) / CLOCKS_PER_SEC;
+    printf("Tempo total dos testes 3 vezes da Busca Sequencial: %.10f segundos\n", sequential_test_time);
+
 // FASE 02
     printf("\n================= FASE 02: TABELA HASH =================\n");
     
@@ -123,6 +136,20 @@ int main() {
     teste_busca_hash(minha_hash, ids, 1);
     teste_busca_hash(minha_hash, ids, 500);
     teste_busca_hash(minha_hash, ids, 1000);
+
+    // Teste de busca de IDs aleatórios listados na Tabela Hash, 3 vezes
+    printf("\nRealização do teste dos IDs aleatórios listados na Tabela Hash, 3 vezes:\n");
+    tempo_inicial = clock();
+    for(int i = 0; i < 3; i++) {
+        printf("\nIteração %d:\n", i + 1);
+        teste_busca_hash(minha_hash, ids, 1);
+        teste_busca_hash(minha_hash, ids, 500);
+        teste_busca_hash(minha_hash, ids, 1000);
+    }
+    tempo_final = clock();
+    double hash_test_time = (double)(tempo_final - tempo_inicial) / CLOCKS_PER_SEC;
+    printf("Tempo total dos testes 3 vezes da Tabela Hash: %.10f segundos\n", hash_test_time);
+
 
     // Limpeza de memória
     destruir_TabelaHash(minha_hash);
