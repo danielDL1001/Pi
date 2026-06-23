@@ -130,4 +130,6 @@ int main() {
 
     return 0;
 }
-// ATÉ AQUI :P
+
+// Copilar: gcc src/*.c -Iinclude -o main.out
+// Executar: ./main
