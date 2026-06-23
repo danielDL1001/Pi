@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/ddl/Documentos/GitHub/Pi",
-      "program": "/home/ddl/Documentos/GitHub/Pi/build/Debug/outDebug",
+      "cwd": "/home/daniel/Documentos/Pi/src",
+      "program": "/home/daniel/Documentos/Pi/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
